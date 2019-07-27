@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 const Home = props => (
     <div>
-        Calc Share App
+        Calc Share Programs Site
   </div>
 );
 
