@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+﻿import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -23,7 +23,7 @@ class FetchData extends Component {
   render() {
     return (
       <div>
-        <h1>Weather forecast</h1>
+        <h1>Weather forecasts</h1>
         <p>This component demonstrates fetching data from the server and working with URL parameters.</p>
         {renderForecastsTable(this.props)}
         {renderPagination(this.props)}
@@ -68,7 +68,11 @@ function renderPagination(props) {
   </p>;
 }
 
+const mapStateToProps = (state, ownProps) => ({
+    ...state.weatherForecasts
+})
+
 export default connect(
-  state => state.weatherForecasts,
+  mapStateToProps,
   dispatch => bindActionCreators(actionCreators, dispatch)
 )(FetchData);

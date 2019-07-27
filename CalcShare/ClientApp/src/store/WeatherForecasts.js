@@ -1,6 +1,9 @@
-const requestWeatherForecastsType = 'REQUEST_WEATHER_FORECASTS';
-const receiveWeatherForecastsType = 'RECEIVE_WEATHER_FORECASTS';
-const initialState = { forecasts: [], isLoading: false };
+﻿import calcShare from '../apis/calcShare'
+
+const REQUEST_WEATHER_FORECASTS = 'REQUEST_WEATHER_FORECASTS';
+const RECEIVE_WEATHER_FORECASTS = 'RECEIVE_WEATHER_FORECASTS';
+
+const INITIAL_STATE = { forecasts: [], isLoading: false };
 
 export const actionCreators = {
   requestWeatherForecasts: startDateIndex => async (dispatch, getState) => {
@@ -9,32 +12,31 @@ export const actionCreators = {
       return;
     }
 
-    dispatch({ type: requestWeatherForecastsType, startDateIndex });
+    dispatch({ type: REQUEST_WEATHER_FORECASTS, payload: startDateIndex });
 
-    const url = `api/SampleData/WeatherForecasts?startDateIndex=${startDateIndex}`;
-    const response = await fetch(url);
-    const forecasts = await response.json();
+    const url = `SampleData/WeatherForecasts?startDateIndex=${startDateIndex}`;
+    const response = await calcShare.get(url);
+    const forecasts = response.data;
 
-    dispatch({ type: receiveWeatherForecastsType, startDateIndex, forecasts });
+    dispatch({ type: RECEIVE_WEATHER_FORECASTS, payload: { startDateIndex, forecasts } });
   }
 };
 
-export const reducer = (state, action) => {
-  state = state || initialState;
+export const reducer = (state = INITIAL_STATE, action) => {
 
-  if (action.type === requestWeatherForecastsType) {
+  if (action.type === REQUEST_WEATHER_FORECASTS) {
     return {
       ...state,
-      startDateIndex: action.startDateIndex,
+      startDateIndex: action.payload.startDateIndex,
       isLoading: true
     };
   }
 
-  if (action.type === receiveWeatherForecastsType) {
+  if (action.type === RECEIVE_WEATHER_FORECASTS) {
     return {
       ...state,
-      startDateIndex: action.startDateIndex,
-      forecasts: action.forecasts,
+      startDateIndex: action.payload.startDateIndex,
+      forecasts: action.payload.forecasts,
       isLoading: false
     };
   }
