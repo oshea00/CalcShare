@@ -2,8 +2,9 @@
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+import { withAuth } from './Auth';
 
-export default class NavMenu extends React.Component {
+class NavMenu extends React.Component {
   constructor (props) {
     super(props);
 
@@ -12,11 +13,13 @@ export default class NavMenu extends React.Component {
       isOpen: false
     };
   }
+
   toggle () {
     this.setState({
       isOpen: !this.state.isOpen
     });
   }
+
   render () {
     return (
       <header>
@@ -29,6 +32,15 @@ export default class NavMenu extends React.Component {
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/fetch-data">Weather</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/profile">Profile</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/external-api">Authors</NavLink>
+                </NavItem>
               </ul>
             </Collapse>
           </Container>
@@ -37,3 +49,6 @@ export default class NavMenu extends React.Component {
     );
   }
 }
+
+export default NavMenu
+

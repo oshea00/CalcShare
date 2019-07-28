@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.css';
+﻿import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -7,6 +7,11 @@ import { createBrowserHistory } from 'history';
 import configureStore from './store/configureStore';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import calcShare from './apis/calcShare';
+import { Auth0Provider } from './react-auth0-wrapper';
+import config from './auth_config';
+
+const rootElement = document.getElementById('root');
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
@@ -16,14 +21,46 @@ const history = createBrowserHistory({ basename: baseUrl });
 const initialState = window.initialReduxState;
 const store = configureStore(history, initialState);
 
-const rootElement = document.getElementById('root');
+const onRedirectCallback = appState => {
+    console.log(appState);
+    window.history.replaceState(
+        {},
+        document.title,
+        appState && appState.targetUrl
+            ? appState.targetUrl
+            : window.location.pathname
+  );
+};
 
-ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
-    </ConnectedRouter>
-  </Provider>,
-  rootElement);
+const renderApplication = (component) => {
+    ReactDOM.render(
+          <Provider store={store}>
+            <ConnectedRouter history={history}>
+                <Auth0Provider
+                    domain={config.domain}
+                    client_id={config.clientId}
+                    redirect_uri={window.location.origin}
+                    audience={config.audience}
+                    onRedirectCallback={onRedirectCallback}
+                >
+                    {component}
+              </Auth0Provider>
+            </ConnectedRouter>
+        </Provider>,
+      rootElement);
+}
+
+calcShare.get("Config/Get")
+    .then(response => {
+        console.log(response.data);
+        window.Configuration = response.data;
+        renderApplication(<App/>);
+    })
+    .catch(error => {
+        console.log(error);
+        renderApplication(
+            <div>Site Is Unavailable</div>
+        );
+    });
 
 registerServiceWorker();

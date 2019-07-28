@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/WeatherForecasts';
 
+
 class FetchData extends Component {
   componentDidMount() {
     // This method is called when the component is first added to the document
@@ -15,7 +16,7 @@ class FetchData extends Component {
     this.ensureDataFetched();
   }
 
-  ensureDataFetched() {
+    ensureDataFetched() {
     const startDateIndex = parseInt(this.props.match.params.startDateIndex, 10) || 0;
     this.props.requestWeatherForecasts(startDateIndex);
   }
@@ -33,7 +34,7 @@ class FetchData extends Component {
 }
 
 function renderForecastsTable(props) {
-  return (
+    return (
     <table className='table table-striped'>
       <thead>
         <tr>
@@ -53,7 +54,7 @@ function renderForecastsTable(props) {
           </tr>
         )}
       </tbody>
-    </table>
+            </table>
   );
 }
 
