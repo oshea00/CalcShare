@@ -22,7 +22,6 @@ const initialState = window.initialReduxState;
 const store = configureStore(history, initialState);
 
 const onRedirectCallback = appState => {
-    console.log(appState);
     window.history.replaceState(
         {},
         document.title,
@@ -52,7 +51,6 @@ const renderApplication = (component) => {
 
 calcShare.get("Config/Get")
     .then(response => {
-        console.log(response.data);
         window.Configuration = response.data;
         renderApplication(<App/>);
     })

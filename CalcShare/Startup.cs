@@ -37,7 +37,7 @@ namespace CalcShare
             })
             .AddJwtBearer(options => {
                 options.Authority = "https://dev--8x78t70.auth0.com";
-                options.Authority = "https://StoreFuturTrends.com";
+                options.Audience = "https://StoreFuturTrends.com";
             });
 
         }

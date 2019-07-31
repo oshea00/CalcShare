@@ -1,10 +1,10 @@
-﻿import React, { useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { Route } from "react-router-dom";
 import { useAuth0 } from "../react-auth0-wrapper";
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
-  const { isAuthenticated, loginWithRedirect } = useAuth0();
-
+  const { isAuthenticated, loginWithRedirect, getTokenSilently } = useAuth0();
+  const [token, setToken] = useState();
   useEffect(() => {
     const fn = async () => {
       if (!isAuthenticated) {
@@ -16,8 +16,15 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
     fn();
   }, [isAuthenticated, loginWithRedirect, path]);
 
-  const render = props => isAuthenticated === true ? <Component {...props} /> : null;
+  useEffect(() => {
+      const fn = async () => {
+          const token = await getTokenSilently();
+          setToken(token);
+      };
+      fn();
+  },[token]);
 
+  const render = props => isAuthenticated === true ? <Component {...props} idToken={token} /> : null;
   return <Route path={path} render={render} {...rest} />;
 };
 

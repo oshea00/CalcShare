@@ -18,7 +18,7 @@ class FetchData extends Component {
 
     ensureDataFetched() {
     const startDateIndex = parseInt(this.props.match.params.startDateIndex, 10) || 0;
-    this.props.requestWeatherForecasts(startDateIndex);
+    this.props.requestWeatherForecasts(startDateIndex,this.props.idToken);
   }
 
   render() {

@@ -2,7 +2,6 @@
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
-import { withAuth } from './Auth';
 
 class NavMenu extends React.Component {
   constructor (props) {
