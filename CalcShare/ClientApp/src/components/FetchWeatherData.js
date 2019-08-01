@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/WeatherForecasts';
 
 
-class FetchData extends Component {
+class FetchWeatherData extends Component {
   componentDidMount() {
     this.ensureDataFetched();
   }
@@ -74,4 +74,4 @@ const mapStateToProps = (state, ownProps) => ({
 export default connect(
   mapStateToProps,
   dispatch => bindActionCreators(actionCreators, dispatch)
-)(FetchData);
+)(FetchWeatherData);
