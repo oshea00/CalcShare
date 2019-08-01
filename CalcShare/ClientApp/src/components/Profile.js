@@ -2,14 +2,13 @@
 import Loading from "../components/Loading";
 import { useAuth0 } from "../react-auth0-wrapper";
 
-const Profile = () => {
-  const { loading, user } = useAuth0();
-
-  if (loading || !user) {
-    return <Loading />;
-  }
-
-  console.log(user);
+const Profile = (props) => {
+  
+  if (!props.isAuthenticated)
+      return <Loading />;
+ 
+  const { user } = useAuth0();
+  //console.log(user);
 
   return (
     <div className="container mb-5">

@@ -7,16 +7,14 @@ import { actionCreators } from '../store/WeatherForecasts';
 
 class FetchData extends Component {
   componentDidMount() {
-    // This method is called when the component is first added to the document
     this.ensureDataFetched();
   }
 
   componentDidUpdate() {
-    // This method is called when the route parameters change
     this.ensureDataFetched();
   }
 
-    ensureDataFetched() {
+  ensureDataFetched() {
     const startDateIndex = parseInt(this.props.match.params.startDateIndex, 10) || 0;
     this.props.requestWeatherForecasts(startDateIndex,this.props.idToken);
   }

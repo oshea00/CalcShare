@@ -1,7 +1,6 @@
-﻿
-{
+﻿{
   "domain": "dev--8x78t70.auth0.com",
   "clientId": "c9uxTWpUnDOKzrYwgPktliiqU4Wn8z4L",
   "redirectUri":  "https://localhost:44313",
-  "audience": "https://StoreFuturTrends.com",
+  "audience": "https://StoreFuturTrends.com"
 }

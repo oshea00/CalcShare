@@ -24,8 +24,10 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
       fn();
   },[token]);
 
-  const render = props => isAuthenticated === true ? <Component {...props} idToken={token} /> : null;
-  return <Route path={path} render={render} {...rest} />;
+  const render = props => isAuthenticated === true ? <Component {...props} idToken={token}
+        isAuthenticated={isAuthenticated} /> : null;
+
+    return <Route path={path} render={render} {...rest} />;
 };
 
 export default PrivateRoute;

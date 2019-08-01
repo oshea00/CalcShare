@@ -1,25 +1,22 @@
 ﻿// src/components/ExternalApi.js
 
 import React, { useState } from "react";
-import { useAuth0 } from "../react-auth0-wrapper";
 import calcStore from '../apis/calcStore';
 
-const ExternalApi = () => {
+const ExternalApi = (props) => {
   const [showResult, setShowResult] = useState(false);
   const [apiMessage, setApiMessage] = useState("");
-  const { getTokenSilently } = useAuth0();
 
   const callApi = async () => {
     try {
-      const token = await getTokenSilently();
 
       const response = await calcStore(window.Configuration.storeUrl).get("authors", {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${props.idToken}`
         }
       });
 
-        const responseData = response.data;
+      const responseData = response.data;
 
       setShowResult(true);
       setApiMessage(responseData);
