@@ -18,9 +18,9 @@ Note: Make sure required configuration items are present (see ConfigController.c
 configuration via user-secrets. When deploying we can choose whatever method is convenient depending  (env, appsettings, etc.)
 
 Example of configuration values:
-StoreServiceUrl = "https://path_to_StoreServiceBaseUrl"
-AuthDomain = "authtenant.domain.com"
-AuthClientId = "OauthClientId"
-AuthAudience = "OAuthAudienceName"
-AuthRedirectUrl = "http://calcshare_url_to_call_afterauth"
+* StoreServiceUrl = "https://path_to_StoreServiceBaseUrl"
+* AuthDomain = "authtenant.domain.com"
+* AuthClientId = "OauthClientId"
+* AuthAudience = "OAuthAudienceName"
+* AuthRedirectUrl = "http://calcshare_url_to_call_afterauth"
 
