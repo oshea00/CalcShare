@@ -1,7 +1,5 @@
-﻿// src/components/ExternalApi.js
-
-import React, { useState } from "react";
-import calcStore from '../apis/calcStore';
+﻿import React, { useState } from "react";
+import axios from 'axios';
 
 const ExternalApi = (props) => {
   const [showResult, setShowResult] = useState(false);
@@ -10,7 +8,7 @@ const ExternalApi = (props) => {
   const callApi = async () => {
     try {
 
-      const response = await calcStore(window.Configuration.storeUrl).get("authors", {
+      const response = await axios.get(`${window.Configuration.storeServiceUrl}/api/authors`, {
         headers: {
           Authorization: `Bearer ${props.idToken}`
         }

@@ -9,7 +9,6 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import calcShare from './apis/calcShare';
 import { Auth0Provider } from './react-auth0-wrapper';
-import config from './auth_config';
 
 const rootElement = document.getElementById('root');
 
@@ -33,17 +32,17 @@ const onRedirectCallback = appState => {
 
 const renderApplication = (component) => {
     ReactDOM.render(
-          <Provider store={store}>
+        <Provider store={store}>
             <ConnectedRouter history={history}>
                 <Auth0Provider
-                    domain={config.domain}
-                    client_id={config.clientId}
-                    redirect_uri={window.location.origin}
-                    audience={config.audience}
+                    domain={window.Configuration.authDomain}
+                    client_id={window.Configuration.authClientId}
+                    redirect_uri={window.Configuration.authRedirectUrl}
+                    audience={window.Configuration.authAudience}
                     onRedirectCallback={onRedirectCallback}
                 >
                     {component}
-              </Auth0Provider>
+                </Auth0Provider>
             </ConnectedRouter>
         </Provider>,
       rootElement);

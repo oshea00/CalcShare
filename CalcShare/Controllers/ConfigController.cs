@@ -16,13 +16,21 @@ namespace CalcShare.Controllers
         public Config Get([FromServices] IConfiguration config)
         {
             return new Config {
-                StoreUrl = config["storeServiceUrl"]
+                StoreServiceUrl = config["StoreServiceUrl"],
+                AuthDomain = config["AuthDomain"],
+                AuthClientId = config["AuthClientId"],
+                AuthRedirectUrl = config["AuthRedirectUrl"],
+                AuthAudience = config["AuthAudience"]
             };
         }
 
         public class Config
         {
-            public string StoreUrl { get; set; }
+            public string StoreServiceUrl { get; set; }
+            public string AuthDomain { get; internal set; }
+            public string AuthClientId { get; internal set; }
+            public string AuthRedirectUrl { get; internal set; }
+            public string AuthAudience { get; internal set; }
         }
 }}
 
