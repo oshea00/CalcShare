@@ -39,6 +39,7 @@ const renderApplication = (component) => {
                     client_id={window.Configuration.authClientId}
                     redirect_uri={window.Configuration.authRedirectUrl}
                     audience={window.Configuration.authAudience}
+                    scope={'openid profile email query'} 
                     onRedirectCallback={onRedirectCallback}
                 >
                     {component}

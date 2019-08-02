@@ -7,7 +7,6 @@ const ExternalApi = (props) => {
 
   const callApi = async () => {
     try {
-
       const response = await axios.get(`${window.Configuration.storeServiceUrl}/api/authors`, {
         headers: {
           Authorization: `Bearer ${props.idToken}`

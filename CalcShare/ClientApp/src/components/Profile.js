@@ -8,8 +8,7 @@ const Profile = (props) => {
       return <Loading />;
  
   const { user } = useAuth0();
-  //console.log(user);
-
+  
   return (
     <div className="container mb-5">
       <h2>{user.name}</h2>

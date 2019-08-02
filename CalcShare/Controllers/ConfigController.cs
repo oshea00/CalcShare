@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace CalcShare.Controllers
 {
@@ -13,8 +14,9 @@ namespace CalcShare.Controllers
         private IConfiguration config;
 
         [HttpGet("[action]")]
-        public Config Get([FromServices] IConfiguration config)
+        public Config Get([FromServices] IConfiguration config, [FromServices] ILogger<ConfigController> logger)
         {
+            logger.LogInformation("Config Loaded...");
             return new Config {
                 StoreServiceUrl = config["StoreServiceUrl"],
                 AuthDomain = config["AuthDomain"],
