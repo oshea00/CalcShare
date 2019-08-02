@@ -8,7 +8,7 @@ import configureStore from './store/configureStore';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import calcShare from './apis/calcShare';
-import { Auth0Provider } from './react-auth0-wrapper';
+import { Auth0Provider } from './react-auth0-spa';
 
 const rootElement = document.getElementById('root');
 

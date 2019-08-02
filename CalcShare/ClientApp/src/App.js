@@ -5,7 +5,7 @@ import Home from './components/Home';
 import Counter from './components/Counter';
 import FetchWeatherData from './components/FetchWeatherData';
 import PrivateRoute from './components/PrivateRoute';
-import { useAuth0 } from './react-auth0-wrapper';
+import { useAuth0 } from './react-auth0-spa';
 import Loading from './components/Loading';
 import Profile from './components/Profile';
 import ExternalApi from './components/ExternalApi';
