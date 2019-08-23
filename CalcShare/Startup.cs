@@ -41,9 +41,7 @@ namespace CalcShare
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(options => {
-                //options.Authority = "https://dev--8x78t70.auth0.com";
-                //options.Audience = "https://StoreFuturTrends.com";
-                options.Authority = Configuration["AuthDomain"];
+                options.Authority = $"https://{Configuration["AuthDomain"]}";
                 options.Audience = Configuration["AuthAudience"];
             });
 

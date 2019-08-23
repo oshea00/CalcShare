@@ -30,8 +30,6 @@ const ExternalApi = (props) => {
       callApi();
   },[showResult]);
 
-    
-
   return (
     <div className="container mb-5">
       <h2>Program Authors</h2>

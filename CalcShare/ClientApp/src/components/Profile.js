@@ -1,6 +1,7 @@
 ﻿import React from "react";
 import Loading from "../components/Loading";
 import { useAuth0 } from "../react-auth0-spa";
+import '../index.css';
 
 const Profile = (props) => {
   
@@ -11,11 +12,13 @@ const Profile = (props) => {
     return (
       <div className="container mb-5">
         <h2>Profile</h2>
-        <table className='table sm table-dark table-bordered'>
-            <tr><td colspan="2" ><img alt="avatar" src={user.picture} /></td></tr>
-            <tr><th>Name</th><td>{user.name}</td></tr>
-            <tr><th>Nickname</th><td>{user.nickname}</td></tr>
-            <tr><th>Email</th><td>{user.email}</td></tr>
+            <table className='table sm table-dark table-bordered'>
+                <tbody className='bigfont'>
+                    <tr><td colSpan="2" ><img alt="avatar" src={user.picture} /></td></tr>
+                    <tr><th>Name</th><td>{user.name}</td></tr>
+                    <tr><th>Nickname</th><td>{user.nickname}</td></tr>
+                    <tr><th>Email</th><td>{user.email}</td></tr>
+                </tbody>
         </table>
       </div>
     );
