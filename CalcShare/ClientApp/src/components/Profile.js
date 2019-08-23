@@ -4,18 +4,21 @@ import { useAuth0 } from "../react-auth0-spa";
 
 const Profile = (props) => {
   
-  if (!props.isAuthenticated)
-      return <Loading />;
- 
-  const { user } = useAuth0();
+    const { user, isAuthenticated } = useAuth0();
+    if (!isAuthenticated)
+        return <Loading />;
   
-  return (
-    <div className="container mb-5">
-      <h2>{user.name}</h2>
-      <p className="lead text-muted">{user.email}</p>
-    <div className="highlight">{JSON.stringify(user, null, 2)}</div>
-    </div>
-  );
+    return (
+      <div className="container mb-5">
+        <h2>Profile</h2>
+        <table className='table sm table-dark table-bordered'>
+            <tr><td colspan="2" ><img alt="avatar" src={user.picture} /></td></tr>
+            <tr><th>Name</th><td>{user.name}</td></tr>
+            <tr><th>Nickname</th><td>{user.nickname}</td></tr>
+            <tr><th>Email</th><td>{user.email}</td></tr>
+        </table>
+      </div>
+    );
 };
 
 export default Profile;

@@ -1,52 +1,55 @@
-﻿import React from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+﻿import React, { useState } from 'react';
+import {
+    Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink
+} from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { useAuth0 } from '../react-auth0-spa';
 import './NavMenu.css';
 
-class NavMenu extends React.Component {
-  constructor (props) {
-    super(props);
+const NavMenu = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false
-    };
-  }
+    const toggle = () => {
+        setIsOpen(!isOpen);
+    }
 
-  toggle () {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
-
-  render () {
     return (
-      <header>
+        <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light >
-          <Container>
+            <Container>
             <NavbarBrand tag={Link} to="/">CalcShare</NavbarBrand>
-            <NavbarToggler onClick={this.toggle} className="mr-2" />
-            <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={this.state.isOpen} navbar>
-              <ul className="navbar-nav flex-grow">
+            <NavbarToggler onClick={toggle} className="mr-2" />
+            <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={isOpen} navbar>
+                <ul className="navbar-nav flex-grow">
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
+                    <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/fetch-data">Weather</NavLink>
+                    <NavLink tag={Link} className="text-dark" to="/fetch-data">Weather</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/profile">Profile</NavLink>
+                    <NavLink tag={Link} className="text-dark" to="/profile">Profile</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/external-api">Authors</NavLink>
+                    <NavLink tag={Link} className="text-dark" to="/external-api">Authors</NavLink>
+                </NavItem>     
+                {isAuthenticated && (
+                <NavItem>
+                    <NavLink className="text-dark" href="#" onClick={()=>logout()}>Logout</NavLink>
                 </NavItem>
-              </ul>
+                )}
+                {!isAuthenticated && (
+                <NavItem>
+                    <NavLink className="text-dark" href="#" onClick={()=>loginWithRedirect({})}>Login</NavLink>
+                 </NavItem>
+                )}
+                </ul>
             </Collapse>
-          </Container>
+            </Container>
         </Navbar>
-      </header>
+        </header>
     );
-  }
 }
 
 export default NavMenu

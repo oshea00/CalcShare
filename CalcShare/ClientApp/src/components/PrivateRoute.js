@@ -4,8 +4,7 @@ import { Route } from "react-router-dom";
 import { useAuth0 } from "../react-auth0-spa";
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
-    const { isAuthenticated, loginWithRedirect, getTokenSilently } = useAuth0();
-    const [token, setToken] = useState();
+    const { isAuthenticated, loginWithRedirect } = useAuth0();
     useEffect(() => {
         const fn = async () => {
             if (!isAuthenticated) {
@@ -17,17 +16,8 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
         fn();
     }, [isAuthenticated, loginWithRedirect, path]);
 
-    useEffect(() => {
-        const fn = async () => {
-            const token = await getTokenSilently();
-            setToken(token);
-        };
-        fn();
-    }, [token]);
-
     const render = props =>
-        isAuthenticated === true ? <Component {...props} idToken={token}
-            isAuthenticated={isAuthenticated} /> : null;
+        isAuthenticated === true ? <Component {...props} /> : null;
 
     return <Route path={path} render={render} {...rest} />;
 };

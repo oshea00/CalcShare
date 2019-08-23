@@ -3,9 +3,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { actionCreators } from '../store/WeatherForecasts';
+import Loading from './Loading';
 
-
-class FetchWeatherData extends Component {
+class FetchWeatherData extends Component { 
   componentDidMount() {
     this.ensureDataFetched();
   }
@@ -15,20 +15,25 @@ class FetchWeatherData extends Component {
   }
 
   ensureDataFetched() {
-    const startDateIndex = parseInt(this.props.match.params.startDateIndex, 10) || 0;
-    this.props.requestWeatherForecasts(startDateIndex,this.props.idToken);
+      const startDateIndex = parseInt(this.props.match.params.startDateIndex, 10) || 0;
+      if (this.props.auth.isAuthenticated)
+          this.props.requestWeatherForecasts(startDateIndex,this.props.auth);
   }
 
-  render() {
-    return (
-      <div>
-        <h1>Weather forecasts</h1>
-        <p>This component demonstrates fetching data from the server and working with URL parameters.</p>
-        {renderForecastsTable(this.props)}
-        {renderPagination(this.props)}
-      </div>
-    );
-  }
+    render() {
+        if (!this.props.auth.isAuthenticated) {
+            return <Loading />;
+        }
+        else {
+            return (
+            <div>
+                <h1>Weather forecasts</h1>
+                <p>This component demonstrates fetching data from the server and working with URL parameters.</p>
+                {renderForecastsTable(this.props)}
+                {renderPagination(this.props)}
+            </div>)
+        }
+    }
 }
 
 function renderForecastsTable(props) {

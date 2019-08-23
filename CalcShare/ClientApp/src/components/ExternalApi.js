@@ -1,5 +1,8 @@
-﻿import React, { useState } from "react";
+﻿import './ExternalApi.css';
+import React, { useState, useEffect } from "react";
+import Loading from "./Loading";
 import axios from 'axios';
+
 
 const ExternalApi = (props) => {
   const [showResult, setShowResult] = useState(false);
@@ -9,7 +12,7 @@ const ExternalApi = (props) => {
     try {
       const response = await axios.get(`${window.Configuration.storeServiceUrl}/api/authors`, {
         headers: {
-          Authorization: `Bearer ${props.idToken}`
+          Authorization: `Bearer ${await props.auth.getTokenSilently()}`
         }
       });
 
@@ -17,16 +20,23 @@ const ExternalApi = (props) => {
 
       setShowResult(true);
       setApiMessage(responseData);
-    } catch (error) {
+    }
+    catch (error) {
       console.error(error);
     }
   };
 
+  useEffect(() => {
+      callApi();
+  },[showResult]);
+
+    
+
   return (
-    <div>
-      <h1>External API</h1>
-      <button onClick={callApi}>Ping API</button>
-      {showResult && <code>{JSON.stringify(apiMessage, null, 2)}</code>}
+    <div className="container mb-5">
+      <h2>Program Authors</h2>
+      {!showResult && <Loading/>}
+          {showResult && <div><pre className="code">{JSON.stringify(apiMessage, null, 2)}</pre></div>}
     </div>
   );
 };

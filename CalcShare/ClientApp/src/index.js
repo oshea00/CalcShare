@@ -1,4 +1,8 @@
-﻿import 'bootstrap/dist/css/bootstrap.css';
+﻿/// <reference path="store/configurestore.js" />
+/// <reference path="store/counter.js" />
+/// <reference path="store/weatherforecasts.js" />
+/// <reference path="app.js" />
+import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -9,6 +13,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import calcShare from './apis/calcShare';
 import { Auth0Provider } from './react-auth0-spa';
+import { StoreContext } from 'redux-react-hook';
 
 const rootElement = document.getElementById('root');
 
@@ -33,18 +38,20 @@ const onRedirectCallback = appState => {
 const renderApplication = (component) => {
     ReactDOM.render(
         <Provider store={store}>
-            <ConnectedRouter history={history}>
-                <Auth0Provider
-                    domain={window.Configuration.authDomain}
-                    client_id={window.Configuration.authClientId}
-                    redirect_uri={window.Configuration.authRedirectUrl}
-                    audience={window.Configuration.authAudience}
-                    scope={'openid profile email query'} 
-                    onRedirectCallback={onRedirectCallback}
-                >
-                    {component}
-                </Auth0Provider>
-            </ConnectedRouter>
+            <StoreContext.Provider value={store}>
+                <ConnectedRouter history={history}>
+                    <Auth0Provider
+                        domain={window.Configuration.authDomain}
+                        client_id={window.Configuration.authClientId}
+                        redirect_uri={window.Configuration.authRedirectUrl}
+                        audience={window.Configuration.authAudience}
+                        scope={'openid profile email query'} 
+                        onRedirectCallback={onRedirectCallback}
+                    >
+                        {component}
+                    </Auth0Provider>
+                </ConnectedRouter>
+            </StoreContext.Provider>
         </Provider>,
       rootElement);
 }

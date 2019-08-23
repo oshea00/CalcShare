@@ -6,10 +6,8 @@ const RECEIVE_WEATHER_FORECASTS = 'RECEIVE_WEATHER_FORECASTS';
 const INITIAL_STATE = { forecasts: [], isLoading: false };
 
 export const actionCreators = {
-    requestWeatherForecasts: (startDateIndex, idToken) => async (dispatch, getState) => {
-
+    requestWeatherForecasts: (startDateIndex, auth) => async (dispatch, getState) => {
     if (startDateIndex === getState().weatherForecasts.startDateIndex) {
-      // Don't issue a duplicate request (we already have or are loading the requested data)
       return;
     }
     dispatch({ type: REQUEST_WEATHER_FORECASTS, payload: startDateIndex });
@@ -17,7 +15,7 @@ export const actionCreators = {
     const url = `SampleData/WeatherForecasts?startDateIndex=${startDateIndex}`;
     const response = await calcShare.get(url, {
           headers: {
-              Authorization: `Bearer ${idToken}`
+            Authorization: `Bearer ${await auth.getTokenSilently()}`
           }
     });
     const forecasts = response.data;
