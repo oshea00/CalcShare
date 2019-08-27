@@ -17,4 +17,28 @@ html {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
+.logo {
+    height: 70px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 5px;
+    border-top: solid;
+    border-width: 3px;
+    border-color: black;
+    background-color: darkcyan;
+    color: white;
+    text-align: right;
+}
+
+a.footerlink:link, a.footerlink:visited {
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    padding: 15px;
+}
 

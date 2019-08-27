@@ -5,6 +5,7 @@ import {
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '../react-auth0-spa';
 import './NavMenu.css';
+import logo from '../assets/hp67ico.png';
 
 const NavMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +19,10 @@ const NavMenu = () => {
         <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3" light >
             <Container>
-            <NavbarBrand tag={Link} to="/">CalcShare</NavbarBrand>
+                    <NavbarBrand tag={Link} to="/">
+                        <img alt="logo" className="logo" src={logo} />
+                        <span className="ml-4">Calculator Software</span>
+                    </NavbarBrand>
             <NavbarToggler onClick={toggle} className="mr-2" />
             <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={isOpen} navbar>
                 <ul className="navbar-nav flex-grow">
