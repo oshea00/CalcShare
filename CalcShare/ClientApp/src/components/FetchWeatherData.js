@@ -2,6 +2,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Table } from 'reactstrap';
 import { actionCreators } from '../store/WeatherForecasts';
 import Loading from './Loading';
 
@@ -38,7 +39,7 @@ class FetchWeatherData extends Component {
 
 function renderForecastsTable(props) {
     return (
-    <table className='table table-striped'>
+    <Table dark>
       <thead>
         <tr>
           <th>Date</th>
@@ -57,7 +58,7 @@ function renderForecastsTable(props) {
           </tr>
         )}
       </tbody>
-            </table>
+    </Table>
   );
 }
 
