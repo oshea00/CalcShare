@@ -39,7 +39,7 @@ class FetchWeatherData extends Component {
 
 function renderForecastsTable(props) {
     return (
-    <Table dark>
+    <Table dark size="sm">
       <thead>
         <tr>
           <th>Date</th>
