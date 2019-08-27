@@ -6,10 +6,17 @@ import { Link } from 'react-router-dom';
 import { useAuth0 } from '../react-auth0-spa';
 import './NavMenu.css';
 import logo from '../assets/hp67ico.png';
+import Loading from './Loading';
 
 const NavMenu = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+    const { isAuthenticated, loginWithRedirect, logout, loading } = useAuth0();
+
+    if (loading) {
+        return (
+            <Loading/>    
+        );
+    }
 
     const toggle = () => {
         setIsOpen(!isOpen);
