@@ -2,9 +2,15 @@
 import { connect } from 'react-redux';
 import { useAuth0 } from '../react-auth0-spa';
 import { Card, CardText, CardBody, CardTitle, ListGroup, ListGroupItem } from 'reactstrap';
+import Loading from './Loading';
 
 const Home = props => {
-    const { user, isAuthenticated } = useAuth0();
+    const { user, isAuthenticated, loading } = useAuth0();
+
+    if (loading && !user) {
+        return (<Loading/>);
+    }
+
     return (
         <div>
             <h1>RPN Software</h1>
